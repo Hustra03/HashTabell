@@ -16,7 +16,7 @@ public class ZipHash {
                 String[] row = line.split(",");
                 Integer code = Integer.valueOf(row[0].replaceAll("\\s", ""));
                 data[i++] = new NodeIntCode(code, row[1], Integer.valueOf(row[2]));
-                key[code] = i - 1;
+                key[code] = i-1;
             }
             max = i - 1;
         } catch (Exception e) {
@@ -38,11 +38,10 @@ public class ZipHash {
 
     public void collisions(int mod) {
         int[] data = new int[mod];
-        int[] cols = new int[mod];
-        
+        int[] cols = new int[10];
         for (int i = 0; i < max; i++) {
-            Integer index = ( key[i] % mod);
-            cols[index]++;
+            Integer index = key[i] % mod;
+            cols[data[index]]++;
             data[index]++;
         }
         System.out.print(mod);

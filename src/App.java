@@ -14,7 +14,7 @@ public class App {
         System.out.println("Expected True: "+zip.linearSeach("111 15"));
         System.out.println("Expected True: "+zip2.linearSeach(11115));
         System.out.println("Expected True: "+zip3.lookup(11115));
-
+        System.out.println("Expected Value 1: " + zip3.key[11120]);
 
         System.out.println("Expected False: "+zip.linearSeach("999 999"));
         System.out.println("Expected False: "+zip2.linearSeach(999999));
@@ -26,7 +26,7 @@ public class App {
     {
         String file = "src\\postnummer.csv";
         ZipHash zip = new ZipHash(file);
-        zip.collisions(999);
+        zip.collisions(10000);
     }
 
     public static void lookUpBenchmark() {
