@@ -2,8 +2,10 @@ public class App {
     public static void main(String[] args) throws Exception {
         //zipTest();
         //lookUpBenchmark();
+        collisonTest();
     }
 
+    
     public static void zipTest() {
         String file = "src\\postnummer.csv";
         Zip zip = new Zip(file);
@@ -18,6 +20,13 @@ public class App {
         System.out.println("Expected False: "+zip2.linearSeach(999999));
         System.out.println("Expected False: "+zip3.lookup(999999));
 
+    }
+
+    public static void collisonTest()
+    {
+        String file = "src\\postnummer.csv";
+        ZipHash zip = new ZipHash(file);
+        zip.collisions(999);
     }
 
     public static void lookUpBenchmark() {

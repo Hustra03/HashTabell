@@ -2,36 +2,19 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class ZipCodeInt {
-    Node[] data;
+    NodeIntCode[] data;
     int max;
 
-    public class Node {
-
-        int code;
-        String name;
-        int pop;
-
-        public Node(int code, String name, int pop) {
-            this.code = code;
-            this.name = name;
-            this.pop = pop;
-        }
-
-        public int getCode() {
-            return this.code;
-        }
-
-    }
 
     public ZipCodeInt(String file) {
-        data = new Node[10000];
+        data = new NodeIntCode[10000];
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             int i = 0;
             while ((line = br.readLine()) != null) {
                 String[] row = line.split(",");
                 Integer code = Integer.valueOf(row[0].replaceAll("\\s", ""));
-                data[i++] = new Node(code, row[1], Integer.valueOf(row[2]));
+                data[i++] = new NodeIntCode(code, row[1], Integer.valueOf(row[2]));
             }
             max = i - 1;
         } catch (Exception e) {
