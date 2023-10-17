@@ -10,11 +10,10 @@ public class App {
         String file = "src\\postnummer.csv";
         Zip zip = new Zip(file);
         ZipCodeInt zip2 = new ZipCodeInt(file);
-        ZipKeyArray zip3 = new ZipKeyArray(file);
+        ZipIndexValue zip3 = new ZipIndexValue(file);
         System.out.println("Expected True: "+zip.linearSeach("111 15"));
         System.out.println("Expected True: "+zip2.linearSeach(11115));
         System.out.println("Expected True: "+zip3.lookup(11115));
-        System.out.println("Expected Value 1: " + zip3.key[11120]);
 
         System.out.println("Expected False: "+zip.linearSeach("999 999"));
         System.out.println("Expected False: "+zip2.linearSeach(999999));
@@ -25,7 +24,7 @@ public class App {
     public static void collisonTest()
     {
         String file = "src\\postnummer.csv";
-        ZipHash zip = new ZipHash(file);
+        ZipHash zip = new ZipHash(file,10000);
         zip.collisions(10000);
     }
 
@@ -160,7 +159,7 @@ public class App {
         }
         System.out.println("Binary Search 984 99 Code Int: " + minimum4);
 
-        ZipKeyArray zip3 = new ZipKeyArray(file);
+        ZipIndexValue zip3 = new ZipIndexValue(file);
 
         minimum1 = Long.MAX_VALUE;
         minimum2 = Long.MAX_VALUE;

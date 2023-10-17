@@ -7,8 +7,8 @@ public class ZipHash {
     int[] key;
     int max;
 
-    public ZipHash(String file) {
-        key = new int[100000];
+    public ZipHash(String file, int mod) {
+        key = new int[mod];
         data = new NodeIntCode[10000];
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
             String line;
@@ -17,7 +17,7 @@ public class ZipHash {
                 String[] row = line.split(",");
                 Integer code = Integer.valueOf(row[0].replaceAll("\\s", ""));
                 data[i++] = new NodeIntCode(code, row[1], Integer.valueOf(row[2]));
-                key[code] = i-1;
+                key[code%mod] = i-1;
             }
             max = i - 1;
         } catch (Exception e) {

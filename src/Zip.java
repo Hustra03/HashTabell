@@ -56,14 +56,14 @@ public class Zip {
         int currentMax = max;
         int position = (currentMin + currentMax) / 2;
         while (true) {
-            if (0 > zip.compareToIgnoreCase(data[position].getCode())) {
-                currentMax = position-1;
-                position = (currentMin + currentMax) / 2;
-            }
             if (0 == zip.compareToIgnoreCase(data[position].getCode())) {
                 return true;
             }
             if (0 < zip.compareToIgnoreCase(data[position].getCode())) {
+                currentMax = position-1;
+                position = (currentMin + currentMax) / 2;
+            }
+            if (0 > zip.compareToIgnoreCase(data[position].getCode())) {
                 currentMin = position+1;
                 position = (currentMin + currentMax) / 2;
             }
