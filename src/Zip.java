@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 
 public class Zip {
     Node[] data;
@@ -25,7 +26,7 @@ public class Zip {
 
     public Zip(String file) {
         data = new Node[10000];
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
             String line;
             int i = 0;
             while ((line = br.readLine()) != null) {
