@@ -1,31 +1,29 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        //zipTest();
-        lookUpBenchmark();
-        //collisonTest();
+        // zipTest();
+        // lookUpBenchmark();
+        collisonTest();
     }
 
-    
     public static void zipTest() {
         String file = "src\\postnummer.csv";
         Zip zip = new Zip(file);
         ZipCodeInt zip2 = new ZipCodeInt(file);
         ZipIndexValue zip3 = new ZipIndexValue(file);
-        System.out.println("Expected True: "+zip.linearSeach("111 15"));
-        System.out.println("Expected True: "+zip2.linearSeach(11115));
-        System.out.println("Expected True: "+zip3.lookup(11115));
+        System.out.println("Expected True: " + zip.linearSeach("111 15"));
+        System.out.println("Expected True: " + zip2.linearSeach(11115));
+        System.out.println("Expected True: " + zip3.lookup(11115));
 
-        System.out.println("Expected False: "+zip.linearSeach("999 999"));
-        System.out.println("Expected False: "+zip2.linearSeach(999999));
-        System.out.println("Expected False: "+zip3.lookup(999999));
+        System.out.println("Expected False: " + zip.linearSeach("999 999"));
+        System.out.println("Expected False: " + zip2.linearSeach(999999));
+        System.out.println("Expected False: " + zip3.lookup(999999));
 
     }
 
-    public static void collisonTest()
-    {
+    public static void collisonTest() {
         String file = "src\\postnummer.csv";
-        ZipHash zip = new ZipHash(file,10000);
-        zip.collisions(10000);
+        ZipHash zip = new ZipHash(file);
+        zip.collisions(1000);
     }
 
     public static void lookUpBenchmark() {

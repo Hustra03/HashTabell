@@ -6,7 +6,6 @@ public class ZipIndexValue {
     NodeIntCode[] data;
     int max;
 
-
     public ZipIndexValue(String file) {
         data = new NodeIntCode[100000];
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
@@ -23,8 +22,20 @@ public class ZipIndexValue {
         }
     }
 
+    public boolean lookupString(String zipString) {
+        Integer zip = Integer.valueOf(zipString.replaceAll("\\s", ""));
+        if (zip > data.length - 1 || zip < 0) {
+            return false;
+        }
+
+        if (zip == data[zip].getCode()) {
+            return true;
+        }
+        return false;
+    }
+
     public boolean lookup(int zip) {
-        if (zip>data.length-1 || zip<0) {
+        if (zip > data.length - 1 || zip < 0) {
             return false;
         }
 
