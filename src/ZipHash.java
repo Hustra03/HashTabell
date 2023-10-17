@@ -47,9 +47,9 @@ public class ZipHash {
             dataCollision[index]++;
         }
 
-        
-        System.out.print("Col.");
-        for (int i = 0; i < cols.length; i++) {
+        System.out.println("Number of collisions per node");
+        System.out.print("Mod");
+        for (int i = 0; i < cols.length+1; i++) {
             System.out.print("\t" + i);
         }
         System.out.println("");

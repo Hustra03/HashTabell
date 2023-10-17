@@ -23,7 +23,7 @@ public class App {
     public static void collisonTest() {
         String file = "src\\postnummer.csv";
         ZipHash zip = new ZipHash(file);
-        zip.collisions(1000);
+        zip.collisions(13513);
     }
 
     public static void lookUpBenchmark() {
