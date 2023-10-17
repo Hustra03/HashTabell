@@ -1,8 +1,8 @@
 public class App {
     public static void main(String[] args) throws Exception {
         // zipTest();
-        // lookUpBenchmark();
-        collisonTest();
+         lookUpBenchmark();
+        //collisonTest();
     }
 
     public static void zipTest() {
@@ -190,5 +190,37 @@ public class App {
         }
         System.out.println("Look Up 984 99: " + minimum2);
 
+        ZipHash zip4 = new ZipHash(file,200);
+
+        minimum1 = Long.MAX_VALUE;
+        minimum2 = Long.MAX_VALUE;
+
+        for (int i = 0; i < attempts; i++) {
+
+            t0 = System.nanoTime();
+            for (int j = 0; j < searches; j++) {
+
+                zip4.lookup(11115);
+            }
+            t1 = System.nanoTime() - t0;
+            if (t1 < minimum1) {
+                minimum1 = t1;
+            }
+        }
+        System.out.println("Look Up Hash 111 15 : " + minimum1);
+
+        for (int i = 0; i < attempts; i++) {
+
+            t0 = System.nanoTime();
+            for (int j = 0; j < searches; j++) {
+
+                zip4.lookup(98499);
+            }
+            t1 = System.nanoTime() - t0;
+            if (t1 < minimum2) {
+                minimum2 = t1;
+            }
+        }
+        System.out.println("Look Up Hash 984 99: " + minimum2);
     }
 }

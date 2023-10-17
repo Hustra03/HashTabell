@@ -18,7 +18,7 @@ public class ZipHash {
                 String[] row = line.split(",");
                 Integer code = Integer.valueOf(row[0].replaceAll("\\s", ""));
                 i++;
-                int index=i % mod;
+                int index = i % mod;
                 data[index].add(code, row[1], Integer.valueOf(row[2]));
                 key[i] = i;
             }
@@ -34,10 +34,8 @@ public class ZipHash {
             return false;
         }
 
-        if (true == data[zip % mod].find(zip)) {
-            return true;
-        }
-        return false;
+        return data[zip % mod].find(zip);
+
     }
 
     public void collisions(int mod) {
