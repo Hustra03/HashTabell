@@ -3,35 +3,38 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 public class ZipHash {
-    NodeIntCode[] data;
+    DoubleLinkedList[] data;
     int[] key;
     int max;
+    int mod;
 
-    public ZipHash(String file) {
+    public ZipHash(String file, int mod) {
         key = new int[20000];
-        data = new NodeIntCode[10000];
+        data = new DoubleLinkedList[mod];
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
             String line;
             int i = 0;
             while ((line = br.readLine()) != null) {
                 String[] row = line.split(",");
                 Integer code = Integer.valueOf(row[0].replaceAll("\\s", ""));
-                data[i++] = new NodeIntCode(code, row[1], Integer.valueOf(row[2]));
+                i++;
+                int index=i % mod;
+                data[index].add(code, row[1], Integer.valueOf(row[2]));
                 key[i] = i;
             }
             this.max = i - 1;
+            this.mod = mod;
         } catch (Exception e) {
             System.out.println(" file " + file + " not found");
         }
     }
 
     public boolean lookup(int zip) {
-        if (zip > key.length - 1 || zip < 0) {
+        if (zip < 0) {
             return false;
         }
-        int index = key[zip];
 
-        if (zip == data[index].getCode()) {
+        if (true == data[zip % mod].find(zip)) {
             return true;
         }
         return false;
@@ -49,7 +52,7 @@ public class ZipHash {
 
         System.out.println("Number of collisions per node");
         System.out.print("Mod");
-        for (int i = 0; i < cols.length+1; i++) {
+        for (int i = 0; i < cols.length + 1; i++) {
             System.out.print("\t" + i);
         }
         System.out.println("");

@@ -21,9 +21,9 @@ public class App {
     }
 
     public static void collisonTest() {
-        String file = "src\\postnummer.csv";
-        ZipHash zip = new ZipHash(file);
-        zip.collisions(13513);
+        String file ="src\\postnummer.csv";
+        ZipHash zip = new ZipHash(file,2000);
+        zip.collisions(2000);
     }
 
     public static void lookUpBenchmark() {
