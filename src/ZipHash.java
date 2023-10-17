@@ -17,7 +17,7 @@ public class ZipHash {
                 String[] row = line.split(",");
                 Integer code = Integer.valueOf(row[0].replaceAll("\\s", ""));
                 data[i++] = new NodeIntCode(code, row[1], Integer.valueOf(row[2]));
-                key[code%mod] = i-1;
+                key[code] = i-1;
             }
             max = i - 1;
         } catch (Exception e) {
