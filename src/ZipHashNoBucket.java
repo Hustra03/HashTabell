@@ -24,7 +24,10 @@ public class ZipHashNoBucket {
                 index = hashFunction(code, mod);
 
                 while (data[index] != null) {
-                    index = (index + expectedMax - 1) % expectedMax;
+                    index += 1;
+                    if (index > data.length - 1) {
+                index=0;
+            }
                 }
 
                 data[index] = new NodeIntCode(code, row[1], Integer.valueOf(row[2]));
@@ -42,12 +45,19 @@ public class ZipHashNoBucket {
         }
 
         int index = hashFunction(zip, mod);
-        int expectedMax = data.length / 2;
+        int initialIndex=index;
+
         while (data[index] != null) {
+
             if (data[index].getCode() == zip) {
                 return true;
             }
-            index = (index + expectedMax - 1) % expectedMax;
+            index += 1;
+            if (index > data.length - 1) {
+                index=0;
+            }
+            if(index==initialIndex)
+            {return false;}
         }
         return false;
 

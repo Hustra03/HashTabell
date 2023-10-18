@@ -24,14 +24,8 @@ public class ZipIndexValue {
 
     public boolean lookupString(String zipString) {
         Integer zip = Integer.valueOf(zipString.replaceAll("\\s", ""));
-        if (zip > data.length - 1 || zip < 0) {
-            return false;
-        }
 
-        if (zip == data[zip].getCode()) {
-            return true;
-        }
-        return false;
+        return lookup(zip);
     }
 
     public boolean lookup(int zip) {
