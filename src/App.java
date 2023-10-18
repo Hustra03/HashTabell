@@ -1,33 +1,39 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        // zipTest();
-         lookUpBenchmark();
-        //collisonTest();
+        String file="src\\postnummer.csv";
+        zipTest(file);
+        // lookUpBenchmark(file);
+        //collisonTest(file);
     }
 
-    public static void zipTest() {
-        String file = "src\\postnummer.csv";
+    public static void zipTest(String file) {
         Zip zip = new Zip(file);
         ZipCodeInt zip2 = new ZipCodeInt(file);
         ZipIndexValue zip3 = new ZipIndexValue(file);
-        System.out.println("Expected True: " + zip.linearSeach("111 15"));
-        System.out.println("Expected True: " + zip2.linearSeach(11115));
-        System.out.println("Expected True: " + zip3.lookup(11115));
+        ZipHash zip4= new ZipHash(file, 5000);
+        ZipHashNoBucket zip5= new ZipHashNoBucket(file, 5000,10000);
+        System.out.println("Zip First Expected True:             " + zip.linearSeach("111 15"));
+        System.out.println("Zip Code Int Expected True:          " + zip2.linearSeach(11115));
+        System.out.println("Zip Index Value Expected True:       " + zip3.lookup(11115));
+        System.out.println("Zip Hash Linked List Expected True:  " + zip4.lookup(11115));
+        System.out.println("Zip Hash No Bucket Expected True:    " + zip5.lookup(11115));
 
-        System.out.println("Expected False: " + zip.linearSeach("999 999"));
-        System.out.println("Expected False: " + zip2.linearSeach(999999));
-        System.out.println("Expected False: " + zip3.lookup(999999));
+        System.out.println("");
+
+        System.out.println("Zip First Expected False:            " + zip.linearSeach("999 999"));
+        System.out.println("Zip Code Int Expected False:         " + zip2.linearSeach(999999));
+        System.out.println("Zip Index Value Expected False:      " + zip3.lookup(999999));
+        System.out.println("Zip Hash Linked List Expected False: " + zip4.lookup(999999));
+        System.out.println("Zip Hash No Bucket Expected False:   " + zip5.lookup(999999));
 
     }
 
-    public static void collisonTest() {
-        String file ="src\\postnummer.csv";
+    public static void collisonTest(String file) {
         ZipHash zip = new ZipHash(file,2000);
         zip.collisions(2000);
     }
 
-    public static void lookUpBenchmark() {
-        String file = "src\\postnummer.csv";
+    public static void lookUpBenchmark(String file) {
         Zip zip = new Zip(file);
 
         long t0;

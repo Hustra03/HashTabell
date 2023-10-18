@@ -2,34 +2,37 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-public class ZipHash {
-    DoubleLinkedList[] data;
+public class ZipHashNoBucket {
+    NodeIntCode[] data;
     int[] key;
     int max;
     int mod;
 
-    public ZipHash(String file, int M) {
-        key = new int[20000];
+    public ZipHashNoBucket(String file, int M, int expectedMax) {
+        key = new int[2 * expectedMax];
         this.mod = M;
-        data = new DoubleLinkedList[mod];
-        for (int i = 0; i < data.length; i++) {
-            data[i]=new DoubleLinkedList();
-        }
+        data = new NodeIntCode[2 * expectedMax];
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
             String line;
             int i = 0;
+            int index = 0;
             while ((line = br.readLine()) != null) {
                 String[] row = line.split(",");
                 Integer code = Integer.valueOf(row[0].replaceAll("\\s", ""));
                 i++;
-                int index = code % mod;
-                data[index].add(code, row[1], Integer.valueOf(row[2]));
+                index = hashFunction(code, mod);
+
+                while (data[index] != null) {
+                    index = (index + expectedMax - 1) % expectedMax;
+                }
+
+                data[index] = new NodeIntCode(code, row[1], Integer.valueOf(row[2]));
                 key[i] = i;
             }
             this.max = i - 1;
         } catch (Exception e) {
-            System.out.println(" file " + file + " not found exception"+ e);
+            System.out.println(" file " + file + " not found exception" + e);
         }
     }
 
@@ -38,10 +41,15 @@ public class ZipHash {
             return false;
         }
 
-        int index = zip%mod;
-        Boolean found = data[index].find(zip);
-
-        return found;
+        int index = hashFunction(zip, mod);
+        int expectedMax = data.length / 2;
+        while (data[index] != null) {
+            if (data[index].getCode() == zip) {
+                return true;
+            }
+            index = (index + expectedMax - 1) % expectedMax;
+        }
+        return false;
 
     }
 

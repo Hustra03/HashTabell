@@ -48,7 +48,6 @@ public class DoubleLinkedList {
                 return true;
             }
             nxt = nxt.tail;
-
         }
         return false;
     }
