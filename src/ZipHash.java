@@ -47,7 +47,7 @@ public class ZipHash {
 
     public void collisions(int mod) {
         int[] dataCollision = new int[mod];
-        int[] cols = new int[70];
+        int[] cols = new int[10];
         System.out.println("Max :" + max);
         for (int i = 0; i < max; i++) {
             Integer index = key[i] % mod;
@@ -57,7 +57,7 @@ public class ZipHash {
 
         System.out.println("Mod"+mod);
         for (int i = 0; i < cols.length; i++) {
-            System.out.print("{ "+ i +", " + cols[i]+"}"+"\t" );
+            System.out.print(" repeat["+ i +", " + cols[i]+"],"+"\t" );
         }
         System.out.println();
     }

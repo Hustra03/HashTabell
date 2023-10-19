@@ -3,8 +3,8 @@ public class App {
         String file = "src\\postnummer.csv";
         // zipTest(file);
         // lookUpBenchmark(file);
-        // collisonTest(file);
-        noBucketBenchmark(file);
+         collisonTest(file);
+        //noBucketBenchmark(file);
     }
 
     public static void zipTest(String file) {
@@ -52,7 +52,7 @@ public class App {
     }
 
     public static void collisonTest(String file) {
-        int modulos[] = { 1000, 2000, 4000, 8000, 10000, 12345, 15000 };
+        int modulos[] = { 10000,13513,13600 ,14000,20000,30000 };
         for (int i : modulos) {
 
             ZipHash zip = new ZipHash(file, i);
