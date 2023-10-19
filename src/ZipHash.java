@@ -25,7 +25,7 @@ public class ZipHash {
                 i++;
                 int index = code % mod;
                 data[index].add(code, row[1], Integer.valueOf(row[2]));
-                key[i] = i;
+                key[i] = code;
             }
             this.max = i - 1;
         } catch (Exception e) {
@@ -47,7 +47,7 @@ public class ZipHash {
 
     public void collisions(int mod) {
         int[] dataCollision = new int[mod];
-        int[] cols = new int[20];
+        int[] cols = new int[70];
         System.out.println("Max :" + max);
         for (int i = 0; i < max; i++) {
             Integer index = key[i] % mod;
@@ -55,15 +55,9 @@ public class ZipHash {
             dataCollision[index]++;
         }
 
-        System.out.println("Number of collisions per node");
-        System.out.print("Mod");
-        for (int i = 0; i < cols.length + 1; i++) {
-            System.out.print("\t" + i);
-        }
-        System.out.println(" ");
-        System.out.print(mod);
+        System.out.println("Mod"+mod);
         for (int i = 0; i < cols.length; i++) {
-            System.out.print("\t" + cols[i]);
+            System.out.print("{ "+ i +", " + cols[i]+"}"+"\t" );
         }
         System.out.println();
     }

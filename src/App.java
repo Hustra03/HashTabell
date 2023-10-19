@@ -1,17 +1,18 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        String file="src\\postnummer.csv";
-        //zipTest(file);
-         lookUpBenchmark(file);
-        //collisonTest(file);
+        String file = "src\\postnummer.csv";
+        // zipTest(file);
+        // lookUpBenchmark(file);
+        // collisonTest(file);
+        noBucketBenchmark(file);
     }
 
     public static void zipTest(String file) {
         Zip zip = new Zip(file);
         ZipCodeInt zip2 = new ZipCodeInt(file);
         ZipIndexValue zip3 = new ZipIndexValue(file);
-        ZipHash zip4= new ZipHash(file, 5000);
-        ZipHashNoBucket zip5= new ZipHashNoBucket(file, 5000,10000);
+        ZipHash zip4 = new ZipHash(file, 5000);
+        ZipHashNoBucket zip5 = new ZipHashNoBucket(file, 5000, 10000);
         System.out.println("Zip First Expected True:             " + zip.linearSeach("111 15"));
         System.out.println("Zip Code Int Expected True:          " + zip2.linearSeach(11115));
         System.out.println("Zip Index Value Expected True:       " + zip3.lookup(11115));
@@ -28,9 +29,35 @@ public class App {
 
     }
 
+    public static void noBucketBenchmark(String file) {
+        int currentValue = 0;
+        int modulos[] = { 100, 250, 500, 1000, 1234, 2000, 4000, 8000, 10000, 12345, 15000, 20000, 30000,40000};
+        int arraySizes[] = { 10000, 20000};
+        for (int j : arraySizes) {
+            for (int k : modulos) {
+
+                if (j * 2 >= k) {
+
+                    ZipHashNoBucket zip5 = new ZipHashNoBucket(file, k, j);
+                    currentValue = 0;
+                    for (int i = 0; i < 100000; i++) {
+                        currentValue += zip5.lookUpLength(i);
+                    }
+                    currentValue /= 100000;
+                    System.out.println(
+                            "Average Comparisons for maxSize : " + j + " Modulo : " + k + " : " + currentValue);
+                }
+            }
+        }
+    }
+
     public static void collisonTest(String file) {
-        ZipHash zip = new ZipHash(file,2000);
-        zip.collisions(2000);
+        int modulos[] = { 1000, 2000, 4000, 8000, 10000, 12345, 15000 };
+        for (int i : modulos) {
+
+            ZipHash zip = new ZipHash(file, i);
+            zip.collisions(i);
+        }
     }
 
     public static void lookUpBenchmark(String file) {
@@ -196,7 +223,7 @@ public class App {
         }
         System.out.println("Look Up 984 99: " + minimum2);
 
-        ZipHash zip4 = new ZipHash(file,10000);
+        ZipHash zip4 = new ZipHash(file, 10000);
 
         minimum1 = Long.MAX_VALUE;
         minimum2 = Long.MAX_VALUE;
@@ -229,7 +256,7 @@ public class App {
         }
         System.out.println("Look Up Hash 984 99: " + minimum2);
 
-        ZipHashNoBucket zip5 = new ZipHashNoBucket(file,10000,10000);
+        ZipHashNoBucket zip5 = new ZipHashNoBucket(file, 10000, 10000);
 
         minimum1 = Long.MAX_VALUE;
         minimum2 = Long.MAX_VALUE;

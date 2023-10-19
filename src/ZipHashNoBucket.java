@@ -63,6 +63,33 @@ public class ZipHashNoBucket {
 
     }
 
+    public int lookUpLength(int zip)
+    {
+        int numberOfComparisons=0;
+        if (zip < 0) {
+            return numberOfComparisons;
+        }
+
+        int index = hashFunction(zip, mod);
+        int initialIndex=index;
+
+        while (data[index] != null) {
+
+            if (data[index].getCode() == zip) {
+                return numberOfComparisons;
+            }
+            index += 1;
+            numberOfComparisons+=1;
+            if (index > data.length - 1) {
+                index=0;
+            }
+            if(index==initialIndex)
+            {return numberOfComparisons;}
+        }
+        return numberOfComparisons;
+
+    }
+
     public void collisions(int mod) {
         int[] dataCollision = new int[mod];
         int[] cols = new int[20];
