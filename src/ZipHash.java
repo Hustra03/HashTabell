@@ -23,7 +23,7 @@ public class ZipHash {
                 String[] row = line.split(",");
                 Integer code = Integer.valueOf(row[0].replaceAll("\\s", ""));
                 i++;
-                int index = code % mod;
+                int index =hashFunction(code, mod);
                 data[index].add(code, row[1], Integer.valueOf(row[2]));
                 key[i] = code;
             }
@@ -38,7 +38,7 @@ public class ZipHash {
             return false;
         }
 
-        int index = zip%mod;
+        int index = hashFunction(zip, mod);
         Boolean found = data[index].find(zip);
 
         return found;

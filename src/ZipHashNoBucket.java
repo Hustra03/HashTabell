@@ -26,8 +26,8 @@ public class ZipHashNoBucket {
                 while (data[index] != null) {
                     index += 1;
                     if (index > data.length - 1) {
-                index=0;
-            }
+                        index=0;
+                    }
                 }
 
                 data[index] = new NodeIntCode(code, row[1], Integer.valueOf(row[2]));
